@@ -3,7 +3,7 @@ endpoint
 api/get/distance
 
 ### For decimal minute second GPS formate
-res:
+req:
 
     {
         "coordinateA":
@@ -19,7 +19,7 @@ res:
     }
 
 ### For decimal minute GPS formate
-res:
+req:
 
     {
         "coordinateA":
@@ -35,7 +35,7 @@ res:
     }
 
 ### For decimal GPS formate
-res:
+req:
 
     {
         "coordinateA":
@@ -51,6 +51,7 @@ res:
     }
 
 
+### Responses 
 res: 
 
     {
@@ -58,13 +59,15 @@ res:
         "data": 1.1346766858693673
     }
 
-error res: 
+### Error responses 
+
+coordinates error res: 
 
     {
         "status": "coordinates entered incorrectly"
     }
 
-error res: 
+server error res: 
 
     {
         "message": "unexpected error on the server"
