@@ -5,6 +5,7 @@ const R = 6371 //Earth radius and if you need another planet
 
 class DistanceService {
 
+    // higher order method combining basic logic
     fromGps = (coordinateA, coordinateB) => {
         if (coordinateA.N.length === coordinateA.S.length  && coordinateB.N.length ===  coordinateB.S.length ) {
           const nA = this.fromMinSecToDcm(coordinateA.N)
@@ -13,15 +14,16 @@ class DistanceService {
           const sB = this.fromMinSecToDcm(coordinateB.S)
 
           console.log(nA, sA, nB, sB);
-            return this.calculateDistance(nA, sA, nB, sB)
+          return this.calculateDistance(nA, sA, nB, sB)
         } else {
-          throw new ApiError('coordinates entered incorrectly')
+          throw ApiError.badRequest('coordinates entered incorrectly')
         }
     }
 
+    // Method of Haversine formula for calculate distance from decimal gps coordinates 
     calculateDistance = (lat1,lon1,lat2,lon2) => {
     
-    let dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    let dLat = this.deg2rad(lat2-lat1); 
     let dLon = this.deg2rad(lon2-lon1); 
     let a = 
       Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -37,6 +39,7 @@ class DistanceService {
     return deg * (Math.PI/180)
   }
 
+  // Adapter for gps formats 
   fromMinSecToDcm = (arr) => {
     let result = 0;
     let min = 0;
@@ -64,8 +67,3 @@ class DistanceService {
 
 
 module.exports = new DistanceService();
-// DD = TRUNC(DDD)
-
-// MM = TRUNC((DDD − DD) * 60)
-
-// SS = ((DDD − DD) * 60 − MM) * 60
